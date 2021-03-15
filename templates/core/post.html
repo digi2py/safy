@@ -1,0 +1,170 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+{{block.super}} {{post.title}}
+{% endblock title %}
+
+{% block content %}
+    <!-- READING POSITION INDICATOR -->
+    <progress value="0" id="eskimo-progress-bar">
+        <span class="eskimo-progress-container">
+            <span class="eskimo-progress-bar"></span>
+        </span>
+    </progress>
+    <!-- SITE WRAPPER -->
+    <div id="eskimo-site-wrapper">
+        <!-- MAIN CONTAINER -->
+        <main id="eskimo-main-container">
+            <div class="container">
+                {% include "includes/sidebar.html" %}
+                <!-- TOP ICONS -->
+                <ul class="eskimo-top-icons">
+                    <li id="eskimo-panel-icon">
+                        <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div> 
+                 
+                            
+                <!-- PAGE TITLE -->
+                <div class="eskimo-page-title">
+                    <h1><span>{{post.title}}</span></h1>
+                    <div class="eskimo-page-title-meta">
+                        <div class="eskimo-author-meta">
+                            By {{post.starter}}
+                        </div>
+                        <div class="eskimo-cat-meta">
+                            In {{post.category}}
+                        </div>
+                        <div class="eskimo-date-meta">{{post.created | date:''}}</div>                    </div>
+                </div>
+                <!-- FEATURED IMAGE -->
+                <div class="eskimo-featured-img">
+                    <img src="{{post.img.url}}" alt="" />
+                </div>
+                <!-- POST CONTENT -->
+                <div class="eskimo-page-content">
+                    <p>{{post.text}}</p>
+                    <div class="clearfix"></div>
+
+                </div>
+                <div class="clearfix"></div>
+                <!-- COMMENTS -->
+                <div id="eskimo-comments-wrapper">
+                    <div id="eskimo_comments_block" class="eskimo_comments_block">
+                        <h3 class="eskimo-title-with-border">
+                            <span>Comments</span>
+                        </h3>
+                        <div class="eskimo_commentlist">
+                            <!-- COMMENT 1 -->
+                            {% for comment in comments %}
+                            <div class="eskimo_comment_wrapper">
+                                <div class="eskimo_comments">
+                                    <div class="eskimo_comment">
+                                        <div class="eskimo_comment_inner">
+                                            <div class="eskimo_comment_left">
+                                                <img alt='' src='{% static "images/100x100.png" %}' />
+                                            </div>
+                                            <div class="eskimo_comment_right">
+                                                <div class="eskimo_comment_right_inner ">
+                                                    <cite class="eskimo_fn">
+                                                        {{comment.commenter}}
+                                                    </cite>
+                                                    <div class="eskimo_comment_links">
+                                                        <i class="fa fa-clock-o"></i> {{comment.created_at|date:''}}
+                                                    </div>
+                                                    <div class="eskimo_comment_text">
+                                                        <p>{{comment.comment}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div id="eskimo_comment_form" class="eskimo_comment_form">
+                    <h3>Leave a Reply</h3>
+                    <form action="" method="POST" id="commentform">
+                        {% csrf_token %}
+                        <p><textarea id="comment" name="comment" cols="45" rows="8" required="required"></textarea></p>
+                        <input name="submit" type="submit" id="submit" class="btn btn-default" value="Post Comment" />
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- FOOTER -->
+        <footer id="eskimo-footer">
+            <div class="container">
+                <!-- CREDITS -->
+                <div class="eskimo-footer-credits">
+                    <p>
+                        Made with love by <a href="#" target="_blank">Taib</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- GO TO TOP BUTTON -->
+    <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
+    <!-- SLIDE PANEL OVERLAY -->
+    <div id="eskimo-overlay"></div>
+    <!-- SLIDE PANEL -->
+    <div id="eskimo-panels">
+        <aside id="eskimo-panel" class="eskimo-panel">
+            <div class="eskimo-panel-inner">
+                <!-- CLOSE SLIDE PANEL BUTTON -->
+                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
+
+                <!-- RECENT POSTS -->
+                <div class="eskimo-recent-entries eskimo-widget">
+                    <h5 class="eskimo-title-with-border"><span>Recent Posts</span></h5>
+                    <ul>
+                        {% for post in posts %}
+                        
+                        <li>
+                            <a href="{% url 'posts' post.id %}">{{post.title}}</a>
+                            <span class="post-date">{{post.created | date:''}}</span>
+                        </li>
+                        {% endfor %}
+                       
+                    </ul>
+                </div>
+                <!-- CATEGORIES -->
+                <div class="eskimo-categories eskimo-widget">
+                    <h5 class="eskimo-title-with-border"><span>Categories</span></h5>
+                    <ul>
+                        {% for post in posts %}
+                          
+                        
+                        <li>
+                            {{post.category}}
+                        </li>
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+
+            </div>
+        </aside>
+    </div>
+    <!-- FULLSCREEN SEARCH -->
+    <div id="eskimo-fullscreen-search">
+        <div id="eskimo-fullscreen-search-content">
+            <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
+            <form role="search" method="get" action="search.html" class="eskimo-lg-form">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg" placeholder="Enter a keyword..." name="s" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

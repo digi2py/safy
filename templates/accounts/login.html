@@ -1,0 +1,66 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+{{block.super}} Signup
+{% endblock title %}
+
+{% block content %}
+
+  <!-- READING POSITION INDICATOR -->
+  <progress value="0" id="eskimo-progress-bar">
+    <span class="eskimo-progress-container">
+        <span class="eskimo-progress-bar"></span>
+    </span>
+</progress>
+<!-- SITE WRAPPER -->
+<div id="eskimo-site-wrapper">
+    <!-- MAIN CONTAINER -->
+    <main id="eskimo-main-container">
+        <div class="container">
+            {% include "includes/sidebar.html" %}
+
+            <div class="clearfix"></div>
+
+   <!-- Sign Up -->
+
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title">Login In Your Account</h4>
+                <form method="POST">
+                {% csrf_token %}
+                <div class="from-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                    <input type="submit" value="Login" class="btn form-control btn-dark mt-4">
+                </div>
+                </form>
+
+                <div class="card-footer text-center text-muted">
+                    <div class="card-text">
+                        Forgot Your Password ? <a href="#" class="text-primary">Reset password</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+    </main>
+    <!-- FOOTER -->
+    <footer id="eskimo-footer">
+        <div class="container">
+
+            <!-- CREDITS -->
+            <div class="eskimo-footer-credits">
+                <p>
+                    Made with love by <a href="{% url 'home' %}" target="_blank">Taib</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+  
+{% endblock content %}

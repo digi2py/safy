@@ -1,1 +1,1 @@
-web: gunicorn.safy.wsgi
+web: gunicorn src.wsgi --log-file -
